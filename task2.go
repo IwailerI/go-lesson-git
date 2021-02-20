@@ -479,4 +479,5 @@ func main() {
 		task.GetFromJSON(dat)
 		task.Process()
 	}
+	fmt.Println("Programm ended")
 }
