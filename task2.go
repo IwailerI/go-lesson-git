@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"os"
 )
@@ -14,21 +15,21 @@ type Person interface {
 
 // Action describes request
 type Action struct {
-	Action  string `json:"action"`
-	ObjName string `json:"object"`
+	Action  string `json:"action" xml:"action"`
+	ObjName string `json:"object" xml:"object"`
 }
 
 // Teacher contains all information about teacher
 type Teacher struct {
-	ID        float64  `json:"id"`
-	Salary    float64  `json:"salary"`
-	Subject   string   `json:"subject"`
-	Classroom []string `json:"classroom"`
+	ID        float64  `json:"id" xml:"id"`
+	Salary    float64  `json:"salary" xml:"salary"`
+	Subject   string   `json:"subject" xml:"subject"`
+	Classroom []string `json:"classroom" xml:"classroom"`
 	Person    struct {
-		Name         string `json:"name"`
-		Surname      string `json:"surname"`
-		PersonalCode string `json:"personalCode"`
-	} `json:"person"`
+		Name         string `json:"name" xml:"name"`
+		Surname      string `json:"surname" xml:"surname"`
+		PersonalCode string `json:"personalCode" xml:"personalCode"`
+	} `json:"person" xml:"person"`
 }
 
 // GetID returns ID
@@ -38,14 +39,14 @@ func (t Teacher) GetID() float64 {
 
 // Student contains all information about student
 type Student struct {
-	ID     float64 `json:"id"`
-	Year   float64 `json:"year"`
-	Index  string  `json:"index"`
+	ID     float64 `json:"id" xml:"id"`
+	Year   float64 `json:"year" xml:"year"`
+	Index  string  `json:"index" xml:"index"`
 	Person struct {
-		Name         string `json:"name"`
-		Surname      string `json:"surname"`
-		PersonalCode string `json:"personalCode"`
-	} `json:"person"`
+		Name         string `json:"name" xml:"name"`
+		Surname      string `json:"surname" xml:"surname"`
+		PersonalCode string `json:"personalCode" xml:"personalCode"`
+	} `json:"person" xml:"person"`
 }
 
 // GetID returns ID
@@ -55,14 +56,14 @@ func (t Student) GetID() float64 {
 
 // Staff contains all information about staff
 type Staff struct {
-	ID        float64  `json:"id"`
-	Salary    float64  `json:"salary"`
-	Classroom []string `json:"classroom"`
+	ID        float64  `json:"id" xml:"id"`
+	Salary    float64  `json:"salary" xml:"salary"`
+	Classroom []string `json:"classroom" xml:"classroom"`
 	Person    struct {
-		Name         string `json:"name"`
-		Surname      string `json:"surname"`
-		PersonalCode string `json:"personalCode"`
-	} `json:"person"`
+		Name         string `json:"name" xml:"name"`
+		Surname      string `json:"surname" xml:"surname"`
+		PersonalCode string `json:"personalCode" xml:"personalCode"`
+	} `json:"person" xml:"person"`
 }
 
 // GetID returns ID
@@ -143,7 +144,12 @@ type CreateTeacher struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *CreateTeacher) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -156,7 +162,12 @@ type ReadTeacher struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *ReadTeacher) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -169,7 +180,12 @@ type UpdateTeacher struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *UpdateTeacher) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -182,7 +198,12 @@ type DeleteTeacher struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *DeleteTeacher) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -195,7 +216,12 @@ type CreateStudent struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *CreateStudent) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -208,7 +234,12 @@ type ReadStudent struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *ReadStudent) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -221,7 +252,12 @@ type UpdateStudent struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *UpdateStudent) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -234,7 +270,12 @@ type DeleteStudent struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *DeleteStudent) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -247,7 +288,12 @@ type CreateStaff struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *CreateStaff) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -260,7 +306,12 @@ type ReadStaff struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *ReadStaff) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -273,7 +324,12 @@ type UpdateStaff struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *UpdateStaff) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -286,7 +342,12 @@ type DeleteStaff struct {
 
 // GetFromJSON unmarshals data from rawData into itself
 func (action *DeleteStaff) GetFromJSON(rawData []byte) {
-	err := json.Unmarshal(rawData, action)
+	var err error
+	if format == "json" {
+		err = json.Unmarshal(rawData, action)
+	} else {
+		err = xml.Unmarshal(rawData, action)
+	}
 	if err != nil {
 		panic(err)
 	}
@@ -437,9 +498,25 @@ var DATABASE []Person
 
 // IDCOUNTER stores current id, increment each time object is created
 var IDCOUNTER float64
+var format string
 
 func main() {
-	fin, err := os.Open("data2.dat")
+
+	fmt.Println("Enter filename: ")
+	var filename string
+	fmt.Scan(&filename)
+
+	fmt.Println("Choose format")
+	for {
+		fmt.Print("[xml/json]: ")
+		fmt.Scan(&format)
+		if format == "json" || format == "xml" {
+			break
+		}
+		fmt.Println("Invalid format")
+	}
+
+	fin, err := os.Open(filename)
 	if err != nil {
 		panic(err)
 	}
@@ -449,7 +526,12 @@ func main() {
 		dat := []byte(in.Text())
 
 		var act Action
-		err = json.Unmarshal(dat, &act)
+
+		if format == "json" {
+			err = json.Unmarshal(dat, &act)
+		} else {
+			err = xml.Unmarshal(dat, &act)
+		}
 		if err != nil {
 			panic(err)
 		}
