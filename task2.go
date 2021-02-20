@@ -479,5 +479,4 @@ func main() {
 		task.GetFromJSON(dat)
 		task.Process()
 	}
-	fmt.Println("All done!")
 }
